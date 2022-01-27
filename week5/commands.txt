@@ -1,0 +1,698 @@
+DOUBTS:
+company=# UPDATE project 
+SET pnumber=5,plocation='Bellaire'
+WHERE pnumber=10
+
+
+update project
+set dnum=5,plocation='Bellaire'
+where pnumber=10
+
+UPDATE employee AS e
+SET salary=salary+(salary*0.1)
+FROM department AS d
+WHERE d.dnumber=e.number
+AND d.dname='Research'
+;
+
+
+SELECT * from employee as e
+inner join department as d
+on e.dno=d.dnumber
+and d.dname='Research';
+
+DELETE FROM employee as e
+WHERE e.lname='Brown'
+;
+
+history:
+
+chandradhar@chandradhar-ASUS-Gaming-FX570UD:~$ psql -U postgres -f /home/chandradhar/University/sem5/DBMS Lab/week5/companyddl.sql
+psql: error: FATAL:  Peer authentication failed for user "postgres"
+chandradhar@chandradhar-ASUS-Gaming-FX570UD:~$ sudo -i -u postgres
+[sudo] password for chandradhar: 
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ psqlpsql -f /home/chandradhar/University/sem5/DBMS Lab/week5/companyddl.sql
+psqlpsql: command not found
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ psql -f /home/chandradhar/University/sem5/DBMS Lab/week5/companyddl.sql
+psql: error: FATAL:  database "Lab/week5/companyddl.sql" does not exist
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ psql -f /home/chandradhar/University/sem5/"DBMS Lab"/week5/companyddl.sql
+psql:/home/chandradhar/University/sem5/DBMS Lab/week5/companyddl.sql:1: ERROR:  database "company" does not exist
+CREATE DATABASE
+You are now connected to database "company" as user "postgres".
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ psql -f /home/chandradhar/University/sem5/"DBMS Lab"/week5/company_insert.sql
+You are now connected to database "company" as user "postgres".
+ALTER TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+psql:/home/chandradhar/University/sem5/DBMS Lab/week5/company_insert.sql:46: ERROR:  null value in column "hours" violates not-null constraint
+DETAIL:  Failing row contains (888665555, 20, null).
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ALTER TABLE
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ \l
+l: command not found
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ \d
+d: command not found
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ \l;
+l: command not found
+postgres@chandradhar-ASUS-Gaming-FX570UD:~$ psql
+psql (12.8 (Ubuntu 12.8-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# \l
+                               List of databases
+     Name      |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+---------------+----------+----------+---------+-------+-----------------------
+ company       | postgres | UTF8     | en_IN   | en_IN | 
+ dcsdb         | postgres | UTF8     | en_IN   | en_IN | 
+ incidentsdb   | postgres | UTF8     | en_IN   | en_IN | 
+ incidenttypes | postgres | UTF8     | en_IN   | en_IN | 
+ postgres      | postgres | UTF8     | en_IN   | en_IN | 
+ ptestdb       | postgres | UTF8     | en_IN   | en_IN | 
+ template0     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ template1     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ test1db       | postgres | UTF8     | en_IN   | en_IN | 
+ testdb        | postgres | UTF8     | en_IN   | en_IN | 
+ week4_lab_123 | postgres | UTF8     | en_IN   | en_IN | =Tc/postgres         +
+               |          |          |         |       | postgres=CTc/postgres+
+               |          |          |         |       | user3=CTc/postgres
+ week4db       | postgres | UTF8     | en_IN   | en_IN | 
+(12 rows)
+
+postgres=# \c company 
+You are now connected to database "company" as user "postgres".
+company=# \d
+             List of relations
+ Schema |      Name      | Type  |  Owner   
+--------+----------------+-------+----------
+ public | department     | table | postgres
+ public | dependent      | table | postgres
+ public | dept_locations | table | postgres
+ public | employee       | table | postgres
+ public | project        | table | postgres
+ public | works_on       | table | postgres
+(6 rows)
+
+company=# select * from dep
+department      dependent       dept_locations  
+company=# select * from department;
+     dname      | dnumber |  mgr_ssn  | mgr_start_date 
+----------------+---------+-----------+----------------
+ Research       |       5 | 333445555 | 1988-05-22
+ Administration |       4 | 987654321 | 1995-01-01
+ Headquarters   |       1 | 888665555 | 1981-06-19
+(3 rows)
+
+company=# \d employee;
+                      Table "public.employee"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ fname     | character varying(15) |           | not null | 
+ minit     | character(1)          |           |          | 
+ lname     | character varying(15) |           | not null | 
+ ssn       | character(9)          |           | not null | 
+ bdate     | date                  |           |          | 
+ address   | character varying(30) |           |          | 
+ gender    | character(1)          |           |          | 
+ salary    | numeric(10,2)         |           |          | 
+ super_ssn | character(9)          |           |          | 
+ dno       | integer               |           | not null | 
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (ssn)
+Foreign-key constraints:
+    "employee_super_ssn_fkey" FOREIGN KEY (super_ssn) REFERENCES employee(ssn)
+    "fkey_dno" FOREIGN KEY (dno) REFERENCES department(dnumber)
+Referenced by:
+    TABLE "department" CONSTRAINT "department_mgr_ssn_fkey" FOREIGN KEY (mgr_ssn) REFERENCES employee(ssn)
+    TABLE "dependent" CONSTRAINT "dependent_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+    TABLE "employee" CONSTRAINT "employee_super_ssn_fkey" FOREIGN KEY (super_ssn) REFERENCES employee(ssn)
+    TABLE "works_on" CONSTRAINT "works_on_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+
+company=# \d project;
+                       Table "public.project"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ pname     | character varying(15) |           | not null | 
+ pnumber   | integer               |           | not null | 
+ plocation | character varying(15) |           |          | 
+ dnum      | integer               |           | not null | 
+Indexes:
+    "project_pkey" PRIMARY KEY, btree (pnumber)
+    "project_pname_key" UNIQUE CONSTRAINT, btree (pname)
+Foreign-key constraints:
+    "project_dnum_fkey" FOREIGN KEY (dnum) REFERENCES department(dnumber)
+Referenced by:
+    TABLE "works_on" CONSTRAINT "works_on_pno_fkey" FOREIGN KEY (pno) REFERENCES project(pnumber)
+
+company=# \d works_on;
+                Table "public.works_on"
+ Column |     Type     | Collation | Nullable | Default 
+--------+--------------+-----------+----------+---------
+ essn   | character(9) |           | not null | 
+ pno    | integer      |           | not null | 
+ hours  | numeric(3,1) |           | not null | 
+Indexes:
+    "works_on_pkey" PRIMARY KEY, btree (essn, pno)
+Foreign-key constraints:
+    "works_on_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+    "works_on_pno_fkey" FOREIGN KEY (pno) REFERENCES project(pnumber)
+
+company=# SELECT DISTINCT lname,pname,hours
+company-# FROM works_on 
+company-# INNER JOIN employee e ON (e.; \r
+Query buffer reset (cleared).
+company=# SELECT DISTINCT e.lname,p.pname,w.hours
+FROM works_on w 
+INNER JOIN employee e ON (e.ssn==w.essn)
+company-# INNER JOIN project p on (p.pnumber==w.pno)
+company-# ;
+ERROR:  operator does not exist: character == character
+LINE 3: INNER JOIN employee e ON (e.ssn==w.essn)
+                                       ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+company=# SELECT DISTINCT e.lname,p.pname,w.hours
+FROM works_on w 
+INNER JOIN employee e ON (e.ssn=w.essn)
+INNER JOIN project p on (p.pnumber=w.pno)
+;
+  lname  |      pname      | hours 
+---------+-----------------+-------
+ Narayan | ProductZ        |  40.0
+ Wong    | ProductY        |  10.0
+ Wallace | Reorganization  |  15.0
+ Smith   | ProductX        |  32.5
+ Smith   | ProductY        |   7.5
+ Jabbar  | Newbenefits     |   5.0
+ Jabbar  | Computerization |  35.0
+ English | ProductY        |  20.0
+ Wong    | Reorganization  |  10.0
+ Wong    | ProductZ        |  10.0
+ Zelaya  | Computerization |  10.0
+ Zelaya  | Newbenefits     |  30.0
+ Wallace | Newbenefits     |  20.0
+ English | ProductX        |  20.0
+ Wong    | Computerization |  10.0
+(15 rows)
+
+company=# CREATE TEMP1_123 SELECT DISTINCT e.lname,p.pname,w.hours
+FROM works_on w 
+INNER JOIN employee e ON (e.ssn=w.essn)
+INNER JOIN project p on (p.pnumber=w.pno)
+;
+ERROR:  syntax error at or near "TEMP1_123"
+LINE 1: CREATE TEMP1_123 SELECT DISTINCT e.lname,p.pname,w.hours
+               ^
+company=# CREATE TEMP TABLE temp1_123 AS SELECT DISTINCT e.lname,p.pname,w.hours
+                
+FROM works_on w 
+INNER JOIN employee e ON (e.ssn=w.essn)
+INNER JOIN project p on (p.pnumber=w.pno)
+;
+SELECT 15
+company=# SELECT * FROM temp1_123;
+  lname  |      pname      | hours 
+---------+-----------------+-------
+ Narayan | ProductZ        |  40.0
+ Wong    | ProductY        |  10.0
+ Wallace | Reorganization  |  15.0
+ Smith   | ProductX        |  32.5
+ Smith   | ProductY        |   7.5
+ Jabbar  | Newbenefits     |   5.0
+ Jabbar  | Computerization |  35.0
+ English | ProductY        |  20.0
+ Wong    | Reorganization  |  10.0
+ Wong    | ProductZ        |  10.0
+ Zelaya  | Computerization |  10.0
+ Zelaya  | Newbenefits     |  30.0
+ Wallace | Newbenefits     |  20.0
+ English | ProductX        |  20.0
+ Wong    | Computerization |  10.0
+(15 rows)
+
+company=# \d
+               List of relations
+  Schema   |      Name      | Type  |  Owner   
+-----------+----------------+-------+----------
+ pg_temp_4 | temp1_123      | table | postgres
+ public    | department     | table | postgres
+ public    | dependent      | table | postgres
+ public    | dept_locations | table | postgres
+ public    | employee       | table | postgres
+ public    | project        | table | postgres
+ public    | works_on       | table | postgres
+(7 rows)
+
+company=# \d dept_locations
+                   Table "public.dept_locations"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ dnumber   | integer               |           | not null | 
+ dlocation | character varying(15) |           | not null | 
+Indexes:
+    "dept_locations_pkey" PRIMARY KEY, btree (dnumber, dlocation)
+Foreign-key constraints:
+    "dept_locations_dnumber_fkey" FOREIGN KEY (dnumber) REFERENCES department(dnumber)
+
+company=# 
+company=# UPDATE project 
+company-# SET pnumber=5 AND plocation='Bellaire'
+company-# WHEN pnumber=10
+company-# ;
+ERROR:  syntax error at or near "WHEN"
+LINE 3: WHEN pnumber=10
+        ^
+company=# UPDATE project 
+SET pnumber=5,plocation='Bellaire'
+WHEN pnumber=10
+;
+ERROR:  syntax error at or near "WHEN"
+LINE 3: WHEN pnumber=10
+        ^
+company=# UPDATE project 
+SET pnumber=5,plocation='Bellaire'
+WHERE pnumber=10
+;
+ERROR:  update or delete on table "project" violates foreign key constraint "works_on_pno_fkey" on table "works_on"
+DETAIL:  Key (pnumber)=(10) is still referenced from table "works_on".
+company=# UPDATE employee 
+company-# SET salary=salary+(salary*0.1)
+company-# WHERE\R
+invalid command \R
+Try \? for help.
+company-# \r
+Query buffer reset (cleared).
+company=# \d department;
+                        Table "public.department"
+     Column     |         Type          | Collation | Nullable | Default 
+----------------+-----------------------+-----------+----------+---------
+ dname          | character varying(15) |           | not null | 
+ dnumber        | integer               |           | not null | 
+ mgr_ssn        | character(9)          |           | not null | 
+ mgr_start_date | date                  |           |          | 
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (dnumber)
+    "department_dname_key" UNIQUE CONSTRAINT, btree (dname)
+Foreign-key constraints:
+    "department_mgr_ssn_fkey" FOREIGN KEY (mgr_ssn) REFERENCES employee(ssn)
+Referenced by:
+    TABLE "dept_locations" CONSTRAINT "dept_locations_dnumber_fkey" FOREIGN KEY (dnumber) REFERENCES department(dnumber)
+    TABLE "employee" CONSTRAINT "fkey_dno" FOREIGN KEY (dno) REFERENCES department(dnumber)
+    TABLE "project" CONSTRAINT "project_dnum_fkey" FOREIGN KEY (dnum) REFERENCES department(dnumber)
+
+company=# UPDATE employee AS e
+company-# SET salary=salary+(salary*0.1)
+company-# FROM department AS d
+company-# WHERE d.dnumber=e.number
+company-# AND d.dname='Research'
+company-# ;
+ERROR:  column e.number does not exist
+LINE 4: WHERE d.dnumber=e.number
+                        ^
+HINT:  Perhaps you meant to reference the column "d.dnumber".
+company=# UPDATE employee AS e
+SET salary=salary+(salary*0.1)
+FROM department AS d
+WHERE d.dnumber=e.dno   
+AND d.dname='Research'
+;
+UPDATE 4
+company=# SELECT FROM employee AS e
+department AS d
+WHERE d.dnumber=e.dno
+AND d.dname='Research'
+;
+ERROR:  syntax error at or near "department"
+LINE 2: department AS d
+        ^
+company=# SELECT * from employee as e
+company-# inner join department as d
+company-# on e.dno=d.dnumber
+company-# and d.dname='Research';
+company=# SELECT * from employee as e
+inner join department as d
+on e.dno=d.dnumber
+and d.dname='Research';
+company=# DELETE FROM employee as e
+company-# WHERE e.lname='Brown'
+company-# ;
+DELETE 0
+company=# DELETE FROM employee as e
+WHERE e.lname='Brown'
+;
+DELETE 0
+company=# select * from employee;
+company=# \d dependent;
+                        Table "public.dependent"
+     Column     |         Type          | Collation | Nullable | Default 
+----------------+-----------------------+-----------+----------+---------
+ essn           | character(9)          |           | not null | 
+ dependent_name | character varying(15) |           | not null | 
+ gender         | character(1)          |           |          | 
+ bdate          | date                  |           |          | 
+ relationship   | character varying(8)  |           |          | 
+Indexes:
+    "dependent_pkey" PRIMARY KEY, btree (essn, dependent_name)
+Foreign-key constraints:
+    "dependent_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+
+company=# \d
+               List of relations
+  Schema   |      Name      | Type  |  Owner   
+-----------+----------------+-------+----------
+ pg_temp_4 | temp1_123      | table | postgres
+ public    | department     | table | postgres
+ public    | dependent      | table | postgres
+ public    | dept_locations | table | postgres
+ public    | employee       | table | postgres
+ public    | project        | table | postgres
+ public    | works_on       | table | postgres
+(7 rows)
+
+company=# \d employee
+                      Table "public.employee"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ fname     | character varying(15) |           | not null | 
+ minit     | character(1)          |           |          | 
+ lname     | character varying(15) |           | not null | 
+ ssn       | character(9)          |           | not null | 
+ bdate     | date                  |           |          | 
+ address   | character varying(30) |           |          | 
+ gender    | character(1)          |           |          | 
+ salary    | numeric(10,2)         |           |          | 
+ super_ssn | character(9)          |           |          | 
+ dno       | integer               |           | not null | 
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (ssn)
+Foreign-key constraints:
+    "employee_super_ssn_fkey" FOREIGN KEY (super_ssn) REFERENCES employee(ssn)
+    "fkey_dno" FOREIGN KEY (dno) REFERENCES department(dnumber)
+Referenced by:
+    TABLE "department" CONSTRAINT "department_mgr_ssn_fkey" FOREIGN KEY (mgr_ssn) REFERENCES employee(ssn)
+    TABLE "dependent" CONSTRAINT "dependent_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+    TABLE "employee" CONSTRAINT "employee_super_ssn_fkey" FOREIGN KEY (super_ssn) REFERENCES employee(ssn)
+    TABLE "works_on" CONSTRAINT "works_on_essn_fkey" FOREIGN KEY (essn) REFERENCES employee(ssn)
+
+company=# \d project;
+                       Table "public.project"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ pname     | character varying(15) |           | not null | 
+ pnumber   | integer               |           | not null | 
+ plocation | character varying(15) |           |          | 
+ dnum      | integer               |           | not null | 
+Indexes:
+    "project_pkey" PRIMARY KEY, btree (pnumber)
+    "project_pname_key" UNIQUE CONSTRAINT, btree (pname)
+Foreign-key constraints:
+    "project_dnum_fkey" FOREIGN KEY (dnum) REFERENCES department(dnumber)
+Referenced by:
+    TABLE "works_on" CONSTRAINT "works_on_pno_fkey" FOREIGN KEY (pno) REFERENCES project(pnumber)
+
+company=# \d
+               List of relations
+  Schema   |      Name      | Type  |  Owner   
+-----------+----------------+-------+----------
+ pg_temp_4 | temp1_123      | table | postgres
+ public    | department     | table | postgres
+ public    | dependent      | table | postgres
+ public    | dept_locations | table | postgres
+ public    | employee       | table | postgres
+ public    | project        | table | postgres
+ public    | works_on       | table | postgres
+(7 rows)
+
+company=# \d project
+                       Table "public.project"
+  Column   |         Type          | Collation | Nullable | Default 
+-----------+-----------------------+-----------+----------+---------
+ pname     | character varying(15) |           | not null | 
+ pnumber   | integer               |           | not null | 
+ plocation | character varying(15) |           |          | 
+ dnum      | integer               |           | not null | 
+Indexes:
+    "project_pkey" PRIMARY KEY, btree (pnumber)
+    "project_pname_key" UNIQUE CONSTRAINT, btree (pname)
+Foreign-key constraints:
+    "project_dnum_fkey" FOREIGN KEY (dnum) REFERENCES department(dnumber)
+Referenced by:
+    TABLE "works_on" CONSTRAINT "works_on_pno_fkey" FOREIGN KEY (pno) REFERENCES project(pnumber)
+
+company=# update project
+company-# set dnum=5,plocation='Bellaire'
+company-# where pnumber=10
+company-# ;
+UPDATE 1
+company=# select * from project;
+      pname      | pnumber | plocation | dnum 
+-----------------+---------+-----------+------
+ ProductX        |       1 | Bellaire  |    5
+ ProductY        |       2 | Sugarland |    5
+ ProductZ        |       3 | Houston   |    5
+ Reorganization  |      20 | Houston   |    1
+ Newbenefits     |      30 | Stafford  |    4
+ Computerization |      10 | Bellaire  |    5
+(6 rows)
+
+company=# BEGIN;
+BEGIN
+company=# CREATE TABLE a1_123(col_1 int);
+CREATE TABLE
+company=# INSERT INTO a1_123 
+company-# VALUES (1),(2)
+company-# ;
+INSERT 0 2
+company=# INSERT INTO a1_123 
+company-# VALUES (4),(5)
+company-# ;
+INSERT 0 2
+company=# COMMIT;
+COMMIT
+company=# END;
+WARNING:  there is no transaction in progress
+COMMIT
+company=# SELECT * FROM a1_123;
+ col_1 
+-------
+     1
+     2
+     4
+     5
+(4 rows)
+
+company=# 
+company=# drop table a1_123;
+DROP TABLE
+company=# \l;
+invalid command \l;
+Try \? for help.
+company=# \l
+                               List of databases
+     Name      |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+---------------+----------+----------+---------+-------+-----------------------
+ company       | postgres | UTF8     | en_IN   | en_IN | 
+ dcsdb         | postgres | UTF8     | en_IN   | en_IN | 
+ incidentsdb   | postgres | UTF8     | en_IN   | en_IN | 
+ incidenttypes | postgres | UTF8     | en_IN   | en_IN | 
+ postgres      | postgres | UTF8     | en_IN   | en_IN | 
+ ptestdb       | postgres | UTF8     | en_IN   | en_IN | 
+ template0     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ template1     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ test1db       | postgres | UTF8     | en_IN   | en_IN | 
+ testdb        | postgres | UTF8     | en_IN   | en_IN | 
+ week4_lab_123 | postgres | UTF8     | en_IN   | en_IN | =Tc/postgres         +
+               |          |          |         |       | postgres=CTc/postgres+
+               |          |          |         |       | user3=CTc/postgres
+ week4db       | postgres | UTF8     | en_IN   | en_IN | 
+(12 rows)
+
+company=# \d 
+               List of relations
+  Schema   |      Name      | Type  |  Owner   
+-----------+----------------+-------+----------
+ pg_temp_4 | temp1_123      | table | postgres
+ public    | department     | table | postgres
+ public    | dependent      | table | postgres
+ public    | dept_locations | table | postgres
+ public    | employee       | table | postgres
+ public    | project        | table | postgres
+ public    | works_on       | table | postgres
+(7 rows)
+
+company=# BEGIN;
+BEGIN
+company=# CREATE TABLE a1_123(col_1 int);
+CREATE TABLE
+company=# INSERT INTO a1_123 
+VALUES (1),(2)
+;
+INSERT 0 2
+company=# SELECT * FROM a1_123;
+ col_1 
+-------
+     1
+     2
+(2 rows)
+
+company=# rollback;
+ROLLBACK
+company=# select * from a1_123;
+ERROR:  relation "a1_123" does not exist
+LINE 1: select * from a1_123;
+                      ^
+company=# BEGIN;
+BEGIN
+company=# CREATE TABLE a1_123(col_1 int);
+CREATE TABLE
+company=# INSERT INTO a1_123 
+VALUES (1),(2)
+;
+INSERT 0 2
+company=# savepoint s_1;
+SAVEPOINT
+company=# INSERT INTO a1_123 
+VALUES (3),(4)
+;
+INSERT 0 2
+company=# select * from a1_123;
+ col_1 
+-------
+     1
+     2
+     3
+     4
+(4 rows)
+
+company=# rollback s_1;
+ERROR:  syntax error at or near "s_1"
+LINE 1: rollback s_1;
+                 ^
+company=# rollback to s_1;
+ROLLBACK
+company=# select * from a1_123;
+ col_1 
+-------
+     1
+     2
+(2 rows)
+
+company=# commit;
+COMMIT
+company=# select * from a1_123;
+ col_1 
+-------
+     1
+     2
+(2 rows)
+
+company=# 
+company=# \d
+               List of relations
+  Schema   |      Name      | Type  |  Owner   
+-----------+----------------+-------+----------
+ pg_temp_4 | temp1_123      | table | postgres
+ public    | a1_123         | table | postgres
+ public    | department     | table | postgres
+ public    | dependent      | table | postgres
+ public    | dept_locations | table | postgres
+ public    | employee       | table | postgres
+ public    | project        | table | postgres
+ public    | works_on       | table | postgres
+(8 rows)
+
+company=# drop table temp1_123;
+DROP TABLE
+company=# create temp temp1_123;
+ERROR:  syntax error at or near "temp1_123"
+LINE 1: create temp temp1_123;
+                    ^
+company=# create temp table temp1_123;
+ERROR:  syntax error at or near ";"
+LINE 1: create temp table temp1_123;
+                                   ^
+company=# insert into #temp1_123
+company-# select distinct e.lname,p.name,w.hours
+company-# from works_on w
+company-# inner join employee e on (e.ssn=w.ssn)
+company-# inner join project p on (p.pnumber=w.pno)
+company-# ;
+ERROR:  syntax error at or near "#"
+LINE 1: insert into #temp1_123
+                    ^
+company=# create temporary table temp1_123;
+ERROR:  syntax error at or near ";"
+LINE 1: create temporary table temp1_123;
+                                        ^
+company=# create temporary table emp1_123 insert into temp1_123 
+select distinct e.lname,p.name,w.hours
+from works_on w
+inner join employee e on (e.ssn=w.ssn)
+inner join project p on (p.pnumber=w.pno)
+;
+ERROR:  syntax error at or near "insert"
+LINE 1: create temporary table emp1_123 insert into temp1_123
+
+
+
+
+
+
+#####FOR DELETETION##########
+company=# \d dependent
+company=# delete from employee 
+where ssn not in 
+(select f.essn from dependent f) 
+;
+
+                  

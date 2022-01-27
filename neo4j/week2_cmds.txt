@@ -1,0 +1,134 @@
+//create university
+create(u:University{name:"PES"})
+
+//display the graph
+match (n)
+return n
+
+//create chandradhar student
+create(n:Student)
+set n.name="chandradhar"
+
+//display the graph
+match (n)
+return n
+
+//create studied at relationship between chandradhar and PES
+//create student at relationship between chandradhar and PES
+match (s:Student),(u:University)
+where s.name="chandradhar" and u.name="PES"
+create (s)-[stud:studies_at]->(u)
+create (s)-[student:student_at]->(u)
+
+//display the graph
+match (n)
+return n
+
+//create tobey Student node
+create(n:Student{name:"tobey"})
+
+//tobey studies at and is a student at PES
+match (n:Student),(u:University)
+where n.name="tobey" and u.name="PES"
+create (n)-[student:student_at]->(u)
+create (n)-[stud:studies_at]->(u)
+
+//display the graph
+match (n)
+return n
+
+//create a Student not studying in pes but best_friend of tobey and chandradhar
+create (n:Student{name:"rahul"})
+
+//create relationships
+match (n:Student{name:"rahul"}),(p:Student{name:"tobey"})
+create (n)-[bst:is_best_friend]->(p)
+
+match (n:Student{name:"rahul"}),(p:Student{name:"chandradhar"})
+create (n)-[bst:is_best_friend]->(p)
+
+
+//create a Student sonam not studying in pes and not friends with chandra,tobey or rahul
+create (n:Student{name:"sonam",age:21})
+
+//display the graph
+match (n)
+return n
+
+//now if pes wants to advertise,the prob of sonam joining pes << prob of rahul joining to pes since rahul has friends already from pes.Hence send advertisement to rahul and not sonam
+
+//create banglore,jaipur location node
+create (l:Location{name:"banglore"})
+create (l1:Location{name:"jaipur"})
+
+//display the graph
+match (n)
+return n
+
+//sonam is present in jaipur
+match (n:Student{name:"sonam"}),(l:Location{name:"jaipur"})
+create (n)-[lives:present_in]->(l)
+
+//catch all other Students without a relation to location and set it to banglore
+match (n:Student)
+where not (n)-[:present_in]->(:Location)
+create(n)-[:present_in]->(:Location{name:"banglore"})
+return n
+
+//retrieve related nodes
+match (p:Student)--(l:Location)
+return p.name
+
+//get nodes based on id
+match (n) 
+where ID(n)=7
+return n
+
+//create node with multiple labels 
+// and sonam loves dog relation
+create (n:Animal:Mammal)
+set n.species="Dog"
+set n.name="chub"
+
+match (n:Animal{name:"chub"})
+match (p:Student)
+where p.name="sonam"
+create (p)-[o:owns_]->(n)
+
+//update sonams age after her birthday using set command
+match (n:Student)
+where n.name="sonam"
+set n.age=22
+return n
+
+
+//display the graph
+match (n)
+return n
+
+//dog dies,hence delete relationship
+match (p:Student{name:"sonam"})-[o:owns_]->(a:Animal{species:"Dog",name:"chub"})
+delete o
+
+//delete dog specific node
+match (d:Animal)
+where d.species="Dog" and d.name="chub"
+delete d
+
+//delete all relationships
+match ()-[r]->()
+delete r
+
+//delete all nodes
+match (n)
+delete n
+
+
+
+
+
+
+
+
+
+
